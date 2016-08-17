@@ -1,10 +1,17 @@
 var path = require('path');
+///得到jquery模块的绝对路径
+//var jqueryPath = path.resolve('node_modules/jquery/dist/jquery.js');
+//path.join(__dirname,'lib/jquery.js')
+var jqueryPath = path.resolve('lib/jquery.js');
 function rewriteUrl(replacePath){
     //req 代表请求对象
     // options代表 proxy数组里的一个对象
+    //此函数用来实现路径转换的
     return function(req,options){
-        req.url = req.path.replace(options.path
-            ,replacePath
+        //req.path是原始的请求路径
+        //经过转换后赋给了req.url
+        req.url = req.path.replace(/^\/api\/(.+)/
+            ,'\/$1\.json'
         );
     }
 }
@@ -14,6 +21,15 @@ module.exports = {
     output: {//指定输出
         path: path.resolve('build'),//指定输出的目录
         filename: 'bundle.js'//指定输出的文件名
+    },
+    //解析模块配置项
+    resolve:{
+        //指定很多的扩展名，当有加载文件的时候可以不需要指定扩展名了
+        extensions:['','.js','.json','.css'],
+        alias:{ //别名
+            //设置jquery别名
+            jquery:jqueryPath
+        }
     },
     devServer:{
       stats:{colors:true},//在控制台执行命令的时候显示颜色

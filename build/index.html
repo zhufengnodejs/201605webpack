@@ -11,7 +11,7 @@
 <script>
     window.onload = function(){
         var xhr = new XMLHttpRequest;
-        xhr.open('GET','/api/books',true);
+        xhr.open('GET','http://localhost:8080/api/books',true);
         xhr.onreadystatechange = function(){
             console.log(xhr.responseText);
             document.querySelector('#app').innerHTML = xhr.responseText;
