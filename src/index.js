@@ -1,2 +1,3 @@
 var msg = require('./component.js');
-alert(msg);
+let a = msg;
+console.log(a);
