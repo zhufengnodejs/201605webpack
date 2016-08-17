@@ -1,5 +1,2 @@
-console.log('a');
-console.log('b');
-function c(){
-    console.log('fff');
-}
+var msg = require('./component.js');
+alert(msg);
