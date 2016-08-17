@@ -1,4 +1,13 @@
 var path = require('path');
+function rewriteUrl(replacePath){
+    //req 代表请求对象
+    // options代表 proxy数组里的一个对象
+    return function(req,options){
+        req.url = req.path.replace(options.path
+            ,replacePath
+        );
+    }
+}
 //导出一个配置对象
 module.exports = {
     entry: path.resolve('src/index.js'),//指定入口文件
@@ -9,16 +18,19 @@ module.exports = {
     devServer:{
       stats:{colors:true},//在控制台执行命令的时候显示颜色
       port:8080,//指定启动http服务器时候使用的端口号
-      contentBase:'./build'
+      contentBase:'./build',
+        //设置代理 模拟后端接口
+    // http://localhost:8080/api/books -> http://localhost:8080/books.json
+      proxy:[
+            {
+                path:/^\/api\/(.+)/,//这是一个要替换路径的正则,也就是请求服务器的路径如果符合此正则
+                target:'http://localhost:8080',//要把此请求交由哪个服务器服务器进行处理
+                rewrite:rewriteUrl('\/$1\.json'),//把原来的路径替换成什么样的路径
+                changeOrigin:true
+            }
+        ]
     },
-    //设置代理 模拟后端接口
-    proxy:[
-        {
-          path:/^\/api\/(.+)/,//这是一个要替换路径的正则,也就是请求服务器的路径如果符合此正则
-          target:'http://localhost:8080',//要把此请求交由哪个服务器服务器进行处理
-          rewrite:rewriteUrl('\/$1\.json')//把原来的路径替换成什么样的路径
-        }
-    ],
+
     //设置模块加载器
     module:{
         //这是一个数组,所以需要加s

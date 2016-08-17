@@ -37,3 +37,8 @@ function rewrite(pathname){
     pathname = pathname.replace(reg, '/$1.json');
     return pathname;
 }
+/**
+ * 主机名
+ * 端口号
+ * 路径
+ **/

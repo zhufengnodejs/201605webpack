@@ -5,7 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<div>欢迎光临</div>
+<div id="app"></div>
 </body>
 <script src="bundle.js"></script>
+<script>
+    window.onload = function(){
+        var xhr = new XMLHttpRequest;
+        xhr.open('GET','/api/books',true);
+        xhr.onreadystatechange = function(){
+            console.log(xhr.responseText);
+            document.querySelector('#app').innerHTML = xhr.responseText;
+        }
+        xhr.send();
+    }
+</script>
 </html>
