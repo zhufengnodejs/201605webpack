@@ -33,5 +33,7 @@ http.createServer(function(req,res){
 }).listen(8088);
 
 function rewrite(pathname){
-
+    var reg = /^\/api\/(\w+)/;
+    pathname = pathname.replace(reg, '/$1.json');
+    return pathname;
 }
