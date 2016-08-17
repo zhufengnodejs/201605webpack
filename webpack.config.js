@@ -11,6 +11,14 @@ module.exports = {
       port:8080,//指定启动http服务器时候使用的端口号
       contentBase:'./build'
     },
+    //设置代理 模拟后端接口
+    proxy:[
+        {
+          path:/^\/api\/(.+)/,//这是一个要替换路径的正则,也就是请求服务器的路径如果符合此正则
+          target:'http://localhost:8080',//要把此请求交由哪个服务器服务器进行处理
+          rewrite:rewriteUrl('\/$1\.json')//把原来的路径替换成什么样的路径
+        }
+    ],
     //设置模块加载器
     module:{
         //这是一个数组,所以需要加s
