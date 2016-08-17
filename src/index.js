@@ -1,3 +1,3 @@
 var msg = require('./component.js');
 let a = msg;
-console.log(a);
+console.log(a,'ddd');

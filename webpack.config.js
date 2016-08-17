@@ -5,5 +5,23 @@ module.exports = {
     output: {//指定输出
         path: path.resolve('build'),//指定输出的目录
         filename: 'bundle.js'//指定输出的文件名
+    },
+    devServer:{
+      stats:{colors:true},//在控制台执行命令的时候显示颜色
+      port:8080,//指定启动http服务器时候使用的端口号
+      contentBase:'./build'
+    },
+    //设置模块加载器
+    module:{
+        //这是一个数组,所以需要加s
+        //针对不同类型的文件要设置不同类型的加载器
+        loaders:[
+            {
+                test:/\.js$/,//设置的针对哪一类文件 匹配的是文件名
+                loader:'babel',//设置加载器babel-loader
+                include:path.resolve('./src'),//扫描处理哪个文件夹下的文件
+                exclude:/node_modules/ // 解析描述的时候排除掉node_modules下面的文件
+            }
+        ]
     }
 }
