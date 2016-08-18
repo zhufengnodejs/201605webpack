@@ -28,8 +28,8 @@ module.exports = {
     //entry: path.resolve('src/index.js'),//指定入口文件
     entry:{
         //多入门，两个入口，每个入口都会打包出来一个文件
-      index:path.resolve('src/index.js'),
-      vendor:['jquery']
+      page1:path.resolve('src/page1.js'),
+      page2:path.resolve('src/page2.js')
     },
     output: {//指定输出
         path: path.resolve('build'),//指定输出的目录
@@ -109,12 +109,23 @@ module.exports = {
         //把刚才抽取到的所有的css文件全部打包输出到bundle.css文件中
         new ExtractTextWebpackPlugin('bundle.css'),
         //
-        new webpack.optimize.CommonsChunkPlugin('vendor', 'zfvendor.js'),
+        //new webpack.optimize.CommonsChunkPlugin('vendor', 'zfvendor.js'),
+        //表示把所有的入口文件引用的相同模块全部提取了出来
+        new webpack.optimize.CommonsChunkPlugin('common.js'),
         new HtmlWebpackPlugin({
           //模板文件路径
           template:'./src/index.html',
           //产出的文件的文件名
-          filename:'index.html'
+          filename:'page1.html',
+            //包含哪些产出的文件
+          chunks:['page1','common.js']
+        }),
+        new HtmlWebpackPlugin({
+            //模板文件路径
+            template:'./src/index.html',
+            //产出的文件的文件名
+            filename:'page2.html',
+            chunks:['page2','common.js']
         }),
         new OpenBrowserWebpackPlugin({
             url:'http://localhost:8080'
