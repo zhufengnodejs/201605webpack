@@ -61,7 +61,22 @@ module.exports = {
             {
                 test:/\.less$/,//设置针地less文件的加载器
                 //使用三个loader来进行加载
-                loader:'style-loader!css-loader!less-loader'
+                loader:'style!css!less'
+            },
+            //css文件的加载
+            {
+              test:/\.css$/,
+              loader:'style!css'
+            },
+            //如何加载图标
+            {
+                test:/\.(eot|svg|ttf|woff|woff2)$/,
+                loader:'url?limit=8192'
+            },
+            //如何加载图片
+            {
+                test:/\.(png|jpg|bmp|gif)$/,
+                loader:'url?limit=8192'
             }
         ]
     }
