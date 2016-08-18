@@ -57,6 +57,11 @@ module.exports = {
                 loader:'babel',//设置加载器babel-loader
                 include:path.resolve('./src'),//扫描处理哪个文件夹下的文件
                 exclude:/node_modules/ // 解析描述的时候排除掉node_modules下面的文件
+            },
+            {
+                test:/\.less$/,//设置针地less文件的加载器
+                //使用三个loader来进行加载
+                loader:'style-loader!css-loader!less-loader'
             }
         ]
     }
