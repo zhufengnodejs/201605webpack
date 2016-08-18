@@ -25,10 +25,15 @@ function rewriteUrl(replacePath){
 }
 //导出一个配置对象
 module.exports = {
-    entry: path.resolve('src/index.js'),//指定入口文件
+    //entry: path.resolve('src/index.js'),//指定入口文件
+    entry:{
+        //多入门，两个入口，每个入口都会打包出来一个文件
+      index:path.resolve('src/index.js'),
+      vendor:['jquery']
+    },
     output: {//指定输出
         path: path.resolve('build'),//指定输出的目录
-        filename: 'bundle.js'//指定输出的文件名
+        filename: '[name].js'//指定输出的文件名
     },
     //解析模块配置项
     resolve:{
@@ -103,6 +108,8 @@ module.exports = {
         definePlugin,
         //把刚才抽取到的所有的css文件全部打包输出到bundle.css文件中
         new ExtractTextWebpackPlugin('bundle.css'),
+        //
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'zfvendor.js'),
         new HtmlWebpackPlugin({
           //模板文件路径
           template:'./src/index.html',
