@@ -10,7 +10,7 @@ var webpack = require('webpack');
 var definePlugin = new webpack.DefinePlugin({
     __DEV__: (process.env.NODE_ENV||'dev').trim() == 'dev'
 });
-
+var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 function rewriteUrl(replacePath){
     //req 代表请求对象
     // options代表 proxy数组里的一个对象
@@ -72,12 +72,15 @@ module.exports = {
             {
                 test:/\.less$/,//设置针地less文件的加载器
                 //使用三个loader来进行加载
-                loader:'style!css!less'
+                //loader:'style!css!less',
+                //不再住bundle.js中打入了，而把这份资源抽出来
+                loader:ExtractTextWebpackPlugin.extract('style','css!less')
             },
             //css文件的加载
             {
               test:/\.css$/,
-              loader:'style!css'
+              //loader:'style!css'
+              loader:ExtractTextWebpackPlugin.extract('style','css')
             },
             //如何加载图标
             {
@@ -98,6 +101,8 @@ module.exports = {
     },
     plugins:[
         definePlugin,
+        //把刚才抽取到的所有的css文件全部打包输出到bundle.css文件中
+        new ExtractTextWebpackPlugin('bundle.css'),
         new HtmlWebpackPlugin({
           //模板文件路径
           template:'./src/index.html',
