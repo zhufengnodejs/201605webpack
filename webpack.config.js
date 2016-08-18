@@ -1,4 +1,6 @@
 var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin');
 ///得到jquery模块的绝对路径
 //var jqueryPath = path.resolve('node_modules/jquery/dist/jquery.js');
 //path.join(__dirname,'lib/jquery.js')
@@ -32,6 +34,9 @@ module.exports = {
         }
     },
     devServer:{
+      //如果为true的话当源代码修改过后
+      //webpack会自动打包并实时刷新浏览器
+      inline:true,
       stats:{colors:true},//在控制台执行命令的时候显示颜色
       port:8080,//指定启动http服务器时候使用的端口号
       contentBase:'./build',
@@ -79,5 +84,16 @@ module.exports = {
                 loader:'url?limit=8192'
             }
         ]
-    }
+    },
+    plugins:[
+        new HtmlWebpackPlugin({
+          //模板文件路径
+          template:'./src/index.html',
+          //产出的文件的文件名
+          filename:'index.html'
+        }),
+        new OpenBrowserWebpackPlugin({
+            url:'http://localhost:8080'
+        })
+    ]
 }

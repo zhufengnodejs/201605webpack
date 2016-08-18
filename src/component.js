@@ -1,2 +1,2 @@
-console.log('ccc');
-module.exports = 'hello';
+console.log('ddd');
+module.exports = 'hello777';
