@@ -33,7 +33,7 @@ module.exports = {
     },
     output: {//指定输出
         path: path.resolve('build'),//指定输出的目录
-        filename: '[name].js'//指定输出的文件名
+        filename: '[name].[hash].js'//指定输出的文件名
     },
     //解析模块配置项
     resolve:{
@@ -107,11 +107,11 @@ module.exports = {
     plugins:[
         definePlugin,
         //把刚才抽取到的所有的css文件全部打包输出到bundle.css文件中
-        new ExtractTextWebpackPlugin('bundle.css'),
+        new ExtractTextWebpackPlugin('bundle.[hash].css'),
         //
         //new webpack.optimize.CommonsChunkPlugin('vendor', 'zfvendor.js'),
         //表示把所有的入口文件引用的相同模块全部提取了出来
-        new webpack.optimize.CommonsChunkPlugin('common.js'),
+        new webpack.optimize.CommonsChunkPlugin('common.[hash].js'),
         new HtmlWebpackPlugin({
           //模板文件路径
           template:'./src/index.html',
