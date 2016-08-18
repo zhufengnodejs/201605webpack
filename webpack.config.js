@@ -5,6 +5,12 @@ var OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin');
 //var jqueryPath = path.resolve('node_modules/jquery/dist/jquery.js');
 //path.join(__dirname,'lib/jquery.js')
 var jqueryPath = path.resolve('lib/jquery.js');
+var webpack = require('webpack');
+//定义一个全局变量,变量的key是__DEV__
+var definePlugin = new webpack.DefinePlugin({
+    __DEV__: (process.env.NODE_ENV||'dev').trim() == 'dev'
+});
+
 function rewriteUrl(replacePath){
     //req 代表请求对象
     // options代表 proxy数组里的一个对象
@@ -82,10 +88,16 @@ module.exports = {
             {
                 test:/\.(png|jpg|bmp|gif)$/,
                 loader:'url?limit=8192'
+            },
+            {
+                test:/jquery\.js$/,
+                //参数是全局变量
+                loader:'expose?jQuery'
             }
         ]
     },
     plugins:[
+        definePlugin,
         new HtmlWebpackPlugin({
           //模板文件路径
           template:'./src/index.html',
