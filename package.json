@@ -31,8 +31,8 @@
     "dev": "webpack-dev-server",
     "publish_dev": "set NODE_ENV=dev && webpack-dev-server",
     "publish_prod": "set NODE_ENV=prod && webpack-dev-server",
-    "react_build": "webpack",
-    "react_dev": "webpack-dev-server"
+    "react_build": "webpack --config webpack.config.react.js",
+    "react_dev": "webpack-dev-server  --config webpack.config.react.js"
   },
   "repository": {
     "type": "git",
