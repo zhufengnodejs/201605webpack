@@ -13,9 +13,10 @@ module.exports = {
         filename:'bundle.js'
     },
     devServer:{
-      contentBase:'./build',
-      port:8080,
-      inline:true
+      contentBase:'./build',//静态文件根目录
+      port:8080, //启动的服务器的端口号
+      hot:true,//启动热模块更新
+      inline:true//当源代码发生改变的时候自动刷新浏览器
     },
     //配置模块
     module:{
@@ -25,7 +26,8 @@ module.exports = {
                 //匹配 js 和jsx后缀
                 test:/\.jsx?$/,
                 //babel是一个通用编译器，默认什么都不做
-                loader:'babel',
+                //指定react-hot加载器
+                loaders:['react-hot','babel'],
                 //指要包含的文件夹
                 include:path.resolve('./react'),
                 exclude:/node_modules/
@@ -33,6 +35,7 @@ module.exports = {
         ]
     },
     plugins:[
+        //热模块替换插件
         //用来在build目录下生成html文件
         new HtmlWebpackPlugin({
             template:'./react/index.html'
@@ -40,7 +43,8 @@ module.exports = {
         //当打包成功之后自动打开浏览器显示url地址
         new OpenBrowserWebpackPlugin({
             url:'http://localhost:8080'
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ]
 
 }
