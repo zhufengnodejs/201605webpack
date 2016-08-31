@@ -12,6 +12,11 @@ module.exports = {
         //文件名
         filename:'bundle.js'
     },
+    devServer:{
+      contentBase:'./build',
+      port:8080,
+      inline:true
+    },
     //配置模块
     module:{
         //设置加载器是一个数组 s
@@ -20,7 +25,10 @@ module.exports = {
                 //匹配 js 和jsx后缀
                 test:/\.jsx?$/,
                 //babel是一个通用编译器，默认什么都不做
-                loader:'babel'
+                loader:'babel',
+                //指要包含的文件夹
+                include:path.resolve('./react'),
+                exclude:/node_modules/
             }
         ]
     },
