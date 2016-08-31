@@ -31,6 +31,11 @@ module.exports = {
                 //指要包含的文件夹
                 include:path.resolve('./react'),
                 exclude:/node_modules/
+            },
+            {
+                test:/\.css$/,
+                //重命名类名 name=组件名字 local=原来的类名 hash是内容计算出来的hash字符串
+                loaders:['style-loader','css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]']
             }
         ]
     },
