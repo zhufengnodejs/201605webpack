@@ -11,7 +11,7 @@ ReactDOM.render(
             <Route path="user" component={User}>
                 <Route path="add" component={UserAdd}/>
                 <Route path="list" component={UserList}/>
-                <Route path="detail" component={UserDetail}/>
+                <Route path="detail/:id" component={UserDetail}/>
             </Route>
             <Route path="profile" component={Profile}/>
         </Route>
