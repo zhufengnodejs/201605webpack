@@ -23,6 +23,21 @@ export default class CommentBox extends React.Component {
             }
         })
     }
+    //增加新的留言
+    addComment(comment){
+        var url = this.props.url;
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data:comment,//把新的留言作为data属性，放在请求体里传到后台
+            dataType:'json',//强行把返回的内容转成json
+            context: this,//成功或失败的回调中的this指针对象
+            success: function (data) {
+                //当数据取回来之后把data传给comments状态
+                this.setState({comments: data})
+            }
+        })
+    }
 
     render() {
         return <div className="row">
@@ -41,7 +56,7 @@ export default class CommentBox extends React.Component {
                 <div className="row">
                     <div className="col-xs-12">
                         {/*留言表单*/}
-                        <CommentForm></CommentForm>
+                        <CommentForm addComment={this.addComment.bind(this)}></CommentForm>
                     </div>
                 </div>
             </div>

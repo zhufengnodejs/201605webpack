@@ -5,6 +5,11 @@ var bodyParser = require('body-parser');
 var readFileAsync = Promise.promisify(require('fs').readFile);
 var writeFileAsync = Promise.promisify(require('fs').writeFile);
 var app = express();
+//输出请求的url的方法
+app.use(function(req,res,next){
+    console.log(req.url,req.method);
+    next();
+});
 app.use(bodyParser.urlencoded({extended:true}));
 const FILE_NAME = './comments.json';
 //先根据路径创建一个路由的实例
@@ -19,13 +24,17 @@ app.route('/comments')
     })
     //当向/comments这个路径发起post 请求的时候如何处理
     .post(function(req,res){
+        res.setHeader('Access-Control-Allow-Origin','*');
         //使用bodyParser中间件之后，会把请求体转成对象放在req.body上
         var comment = req.body;
+        console.log(comment);
+        var comments = [];
         readFileAsync(FILE_NAME,'utf8').then(function(data){
             //先取出原来所有的留言
-            var comments = JSON.parse(data);
+            comments = JSON.parse(data);
             //给新传过来的留言赋ID等于 原来最大的ID加1
             //如果原来有元素，则在最大ID加1
+            comment.date = new Date();
             if(comments.length>0)
                comment.id = comments[comments.length-1].id+1;
             else //如果原来没有元素，则ID赋为1
@@ -36,7 +45,7 @@ app.route('/comments')
             return writeFileAsync(FILE_NAME,JSON.stringify(comments),'utf8');
         }).then(function(result){
             //返回添加ID后的留言对象
-            res.send(comment);
+            res.send(comments);
         }).catch(function(err){
             res.statusCode = 500;
             res.send(err);
