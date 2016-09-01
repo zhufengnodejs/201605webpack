@@ -1,5 +1,6 @@
 import React from 'react';
 import {CommentForm,CommentList} from '../../components';
+import $ from 'jquery';
 export default class CommentBox extends React.Component {
     //构造函数,当组件被实例化执行第一个函数
     constructor(props) {
@@ -14,6 +15,7 @@ export default class CommentBox extends React.Component {
         $.ajax({
             url: url,
             method: 'GET',
+            dataType:'json',//强行把返回的内容转成json
             context: this,//成功或失败的回调中的this指针对象
             success: function (data) {
                 //当数据取回来之后把data传给comments状态

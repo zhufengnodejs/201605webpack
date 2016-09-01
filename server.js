@@ -25,7 +25,11 @@ app.route('/comments')
             //先取出原来所有的留言
             var comments = JSON.parse(data);
             //给新传过来的留言赋ID等于 原来最大的ID加1
-            comment.id = comments[comments.length-1].id+1;
+            //如果原来有元素，则在最大ID加1
+            if(comments.length>0)
+               comment.id = comments[comments.length-1].id+1;
+            else //如果原来没有元素，则ID赋为1
+                comment.id =1;
             //在原来的留言列表上添加新的评论
             comments.push(comment);
             //把最新的列表写入到文件系统中
