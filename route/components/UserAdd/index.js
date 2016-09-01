@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link,hashHistory} from 'react-router';
 export default class User extends React.Component{
     handleSubmit(event){
         event.preventDefault();
@@ -9,6 +9,10 @@ export default class User extends React.Component{
         user.id = userlist.length;
         userlist.push(user);
         localStorage.setItem('userlist',JSON.stringify(userlist));
+        hashHistory.push('/user/list');
+        setTimeout(function(){
+            hashHistory.goBack();
+        },2000);
     }
     render(){
         return <div className="row">
