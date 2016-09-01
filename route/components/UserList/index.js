@@ -3,12 +3,16 @@ import {Link} from 'react-router';
 export default class UserList extends React.Component{
     constructor(props){
         super(props);
-        this.status = {userlist:[]};
+        this.state = {userlist:[]};
+    }
+    componentDidMount(){
+        this.getUserList();
     }
    //获取所有的用户列表
     getUserList(){
         var userlist = localStorage.getItem('userlist');
         userlist =  userlist?JSON.parse(userlist):[];
+        userlist = [{"id":1,"name":"张三"},{"id":2,"name":"李四"}];
         this.setState({userlist:userlist});
     }
     render(){
@@ -16,7 +20,7 @@ export default class UserList extends React.Component{
             <div className="col-xs-12">
                 <ul className="list-group">
                     {
-                        this.state.userlist.map((item,index)=><li><Link to={"/user/detail/"+item.id}>{item.name}</Link></li>)
+                        this.state.userlist.map((item,index)=><li key={index}><Link to={"/user/detail/"+item.id} >{item.name}</Link></li>)
                     }
                 </ul>
             </div>
