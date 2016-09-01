@@ -7,7 +7,8 @@
     "bluebird": "^3.4.5",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
-    "moment": "^2.14.1"
+    "moment": "^2.14.1",
+    "react-router": "^2.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
@@ -39,7 +40,8 @@
     "react_build": "webpack --config webpack.config.react.js",
     "react_dev": "webpack-dev-server  --config webpack.config.react.js",
     "box_build": "webpack --config webpack.config.box.js",
-    "box_dev": "webpack-dev-server  --config webpack.config.box.js"
+    "box_dev": "webpack-dev-server  --config webpack.config.box.js",
+    "route_dev": "webpack-dev-server  --config webpack.config.route.js"
   },
   "repository": {
     "type": "git",
