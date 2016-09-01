@@ -4,8 +4,9 @@ export default class CommentList extends React.Component{
     render(){
         return <div>
             <ul className="list-group">
-                <Comment author="张三" date="10分钟前">今天天气真好</Comment>
-                <Comment author="李四" date="1分钟前">是呀</Comment>
+                {
+                    this.props.data.map((item,index)=><Comment author={item.author} date={item.date} key={index}>{item.content}</Comment>)
+                }
             </ul>
         </div>
     }
