@@ -1,26 +1,29 @@
 import React from 'react';
 import {Link} from 'react-router';
-export default class UserList extends React.Component{
-    constructor(props){
+export default class UserList extends React.Component {
+    constructor(props) {
         super(props);
-        this.state = {userlist:[]};
+        this.state = {userlist: []};
     }
-    componentDidMount(){
+
+    componentDidMount() {
         this.getUserList();
     }
-   //获取所有的用户列表
-    getUserList(){
+
+    //获取所有的用户列表
+    getUserList() {
         var userlist = localStorage.getItem('userlist');
-        userlist =  userlist?JSON.parse(userlist):[];
-        userlist = [{"id":1,"name":"张三"},{"id":2,"name":"李四"}];
-        this.setState({userlist:userlist});
+        userlist = userlist ? JSON.parse(userlist) : [];
+        this.setState({userlist: userlist});
     }
-    render(){
+
+    render() {
         return <div className="row">
             <div className="col-xs-12">
                 <ul className="list-group">
                     {
-                        this.state.userlist.map((item,index)=><li key={index}><Link to={"/user/detail/"+item.id} >{item.name}</Link></li>)
+                        this.state.userlist.map((item, index)=><li key={index} className="list-group-item"><Link
+                            to={"/user/detail/"+item.id}>{item.name}</Link></li>)
                     }
                 </ul>
             </div>
