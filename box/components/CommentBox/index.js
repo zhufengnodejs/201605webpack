@@ -11,9 +11,8 @@ export default class CommentBox extends React.Component {
     }
 
     init() {
-        var url = this.props.url;
         $.ajax({
-            url: url,
+            url: this.props.url,
             method: 'GET',
             dataType:'json',//强行把返回的内容转成json
             context: this,//成功或失败的回调中的this指针对象
@@ -25,9 +24,8 @@ export default class CommentBox extends React.Component {
     }
     //增加新的留言
     addComment(comment){
-        var url = this.props.url;
         $.ajax({
-            url: url,
+            url: this.props.url,
             method: 'POST',
             data:comment,//把新的留言作为data属性，放在请求体里传到后台
             dataType:'json',//强行把返回的内容转成json
@@ -40,7 +38,17 @@ export default class CommentBox extends React.Component {
     }
     //删除留言,接收一个ID作为参数
     removeComment(id){
-        console.log(id);
+        $.ajax({
+            url: this.props.url,
+            method: 'DELETE',
+            data:{id:id},//把新的留言作为data属性，放在请求体里传到后台
+            dataType:'json',//强行把返回的内容转成json
+            context: this,//成功或失败的回调中的this指针对象
+            success: function (data) {
+                //当数据取回来之后把data传给comments状态
+                this.setState({comments: data})
+            }
+        })
     }
     render() {
         return <div className="row">
