@@ -38,7 +38,10 @@ export default class CommentBox extends React.Component {
             }
         })
     }
-
+    //删除留言,接收一个ID作为参数
+    removeComment(id){
+        console.log(id);
+    }
     render() {
         return <div className="row">
             <div className="col-xs-12">
@@ -50,7 +53,7 @@ export default class CommentBox extends React.Component {
                 <div className="row">
                     <div className="col-xs-12">
                         {/*留言列表*/}
-                        <CommentList data={this.state.comments}></CommentList>
+                        <CommentList removeComment={this.removeComment.bind(this)} data={this.state.comments}></CommentList>
                     </div>
                 </div>
                 <div className="row">
