@@ -4,6 +4,8 @@
   "description": "201605webpack",
   "main": "webpack.config.js",
   "dependencies": {
+    "bluebird": "^3.4.5",
+    "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7"
   },
   "devDependencies": {

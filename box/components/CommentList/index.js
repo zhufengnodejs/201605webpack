@@ -1,10 +1,11 @@
 import React from 'react';
+import {Comment} from '../../components';
 export default class CommentList extends React.Component{
     render(){
         return <div>
             <ul className="list-group">
-                <li className="list-group-item">张三:今天天气真好 2016年9月1日10:16:43</li>
-                <li className="list-group-item">李四:是不错 2016年9月1日10:16:58</li>
+                <Comment author="张三" date="10分钟前">今天天气真好</Comment>
+                <Comment author="李四" date="1分钟前">是呀</Comment>
             </ul>
         </div>
     }
