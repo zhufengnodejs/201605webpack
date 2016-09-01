@@ -6,7 +6,8 @@
   "dependencies": {
     "bluebird": "^3.4.5",
     "body-parser": "^1.15.2",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "moment": "^2.14.1"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
